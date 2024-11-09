@@ -1,6 +1,6 @@
 {
   
-  "name": "apirestfull_nodejs-express-prisma-mdb",
+  "name": "apirestful_nodejs-express-prisma-mdb",
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {},
