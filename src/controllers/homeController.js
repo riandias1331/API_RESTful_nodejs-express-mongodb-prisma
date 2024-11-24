@@ -1,6 +1,9 @@
 const Users = require('../models/UsersDatabase')
 
-exports.read = async (req, res) => {
+const bcrypt = require('bcrypt')
+
+
+exports.getUsers = async (req, res) => {
     try {
         const user = await Users.find()
         res.status(200).json(user)
@@ -9,29 +12,49 @@ exports.read = async (req, res) => {
 
     }
 }
+exports.getUser = async (req, res) => {
+    try {
+        const user = await Users.findById(req.params)
+        res.status(200).json(user)
+
+        if (!user) {
+            return res.status(404).json({ message: 'Produto não encontrado' });
+        }
+
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
 
 exports.created = async (req, res) => {
-    try{
+    try {
         const { name, email, password } = req.body
-        const user = await Users.create({ name, email, password })
+        const salt = await bcrypt.genSalt(10)
+        const hashPassword = await bcrypt.hash(password, salt)
+        const user = await Users.create({
+            name,
+            email,
+            password: hashPassword
+        })
         res.status(201).json(user)
 
-    } catch(error){
-        res.status(400).json({ message: error.message  })
+    } catch (error) {
+        res.status(400).json({ message: error.message })
     }
 }
 
 exports.update = async (req, res) => {
-    try{
+    try {
 
         const userId = req.params.id
         const updateId = req.body
-        const user = await Users.findByIdAndUpdate(userId, updateId, {new: true})
+        const user = await Users.findByIdAndUpdate(userId, updateId, { new: true })
         if (!user) {
             return res.status(404).json({ message: 'Usuário não encontrado' });
         } res.status(200).json(user);
-    } catch(error){
-        res.status(400).json({ message: error.message  })
+    } catch (error) {
+        res.status(400).json({ message: error.message })
     }
 }
 
