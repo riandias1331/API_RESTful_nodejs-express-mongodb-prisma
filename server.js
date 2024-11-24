@@ -10,7 +10,7 @@ const routes = require('./routes.js')
 app.use(routes)
 
 const mongoose = require('mongoose')
-const connectMDB = process.env.CONNECTION
+const connectMDB = process.env.DATABASE_URL
 
 mongoose.connect(connectMDB)
     .then(() => {
