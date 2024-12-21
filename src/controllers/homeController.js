@@ -18,7 +18,7 @@ exports.getUser = async (req, res) => {
         res.status(200).json(user)
 
         if (!user) {
-            return res.status(404).json({ message: 'Produto não encontrado' });
+            return res.status(404).json({ message: 'user not found' });
         }
 
         res.json(user);
@@ -51,7 +51,7 @@ exports.update = async (req, res) => {
         const updateId = req.body
         const user = await Users.findByIdAndUpdate(userId, updateId, { new: true })
         if (!user) {
-            return res.status(404).json({ message: 'Usuário não encontrado' });
+            return res.status(404).json({ message: 'user not found' });
         } res.status(200).json(user);
     } catch (error) {
         res.status(400).json({ message: error.message })
@@ -63,8 +63,8 @@ exports.deleted = async (req, res) => {
         const userId = req.params.id;
         const user = await Users.findByIdAndDelete(userId);
         if (!user) {
-            return res.status(404).json({ message: 'Usuário não encontrado' });
-        } res.status(200).json({ message: 'Usuário deletado com sucesso' });
+            return res.status(404).json({ message: 'user not found' });
+        } res.status(200).json({ message: 'User deleted successfully' });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
