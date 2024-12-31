@@ -14,14 +14,13 @@ exports.getUsers = async (req, res) => {
 }
 exports.getUser = async (req, res) => {
     try {
-        const user = await Users.findById(req.params)
-        res.status(200).json(user)
+        const user = await Users.findById(req.params.id)
 
         if (!user) {
             return res.status(404).json({ message: 'user not found' });
         }
 
-        res.json(user);
+        res.status(200).json(user)
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
