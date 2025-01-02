@@ -11,3 +11,5 @@ route.delete('/users/:id', homeController.deleted);
 route.delete('/users', homeController.deletedAll);
 
 module.exports = route;
+
+
