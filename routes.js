@@ -8,5 +8,6 @@ route.get('/users', homeController.getUsers);
 route.get('/users/:id', homeController.getUser);
 route.put('/users/:id', homeController.update);
 route.delete('/users/:id', homeController.deleted);
+route.delete('/users', homeController.deletedAll);
 
 module.exports = route;
